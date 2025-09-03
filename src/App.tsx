@@ -129,9 +129,12 @@ export default function App() {
         wheel={{ step: 0.1 }}
         pinch={{ step: 0.1 }}
         doubleClick={{ disabled: true }}
-        className="map"
+        wrapperClass="map"
       >
-        <TransformComponent>
+        <TransformComponent
+          wrapperStyle={{ width: '100%', height: '100%' }}
+          contentStyle={{ width: '100%', height: '100%' }}
+        >
           <svg
             width="100%"
             height="100%"

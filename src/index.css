@@ -3,6 +3,8 @@ body,
 #root {
   height: 100%;
   margin: 0;
+  width: 100%;
+  font-family: system-ui, sans-serif;
 }
 
 /* Colour tokens for light theme; dark mode overrides come later */
@@ -38,16 +40,22 @@ body,
 .app {
   display: flex;
   height: 100%;
+  width: 100%;
   color: var(--text);
 }
 
 svg {
   flex: 1;
   background: var(--bg);
+  width: 100%;
+  height: 100%;
 }
 
 .map {
   flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
 }
 
 .sidebar {
@@ -56,12 +64,22 @@ svg {
   overflow-y: auto;
   background: var(--sidebar-bg);
   color: var(--text);
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
 }
 
-.heatmap-toggle,
-.theme-toggle,
-.reset-view {
+button {
   margin-bottom: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--selected-stroke);
+  color: #fff;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2563eb;
 }
 
 .adjacent-finder {
@@ -77,6 +95,10 @@ svg {
   fill: var(--seat-fill);
   stroke: var(--seat-stroke);
   cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    stroke-width 0.2s ease;
+  transform-origin: center;
 }
 
 .seat.available {
@@ -94,6 +116,7 @@ svg {
 .seat.selected {
   stroke-width: 3;
   stroke: var(--selected-stroke);
+  transform: scale(1.2);
 }
 
 /* flash animation when a seat status updates */
