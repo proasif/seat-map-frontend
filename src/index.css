@@ -1,0 +1,175 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+  font-family: system-ui, sans-serif;
+}
+
+/* Colour tokens for light theme; dark mode overrides come later */
+:root {
+  --bg: #f5f5f5;
+  --sidebar-bg: #fff;
+  --text: #000;
+  --seat-fill: #ddd;
+  --seat-stroke: #444;
+  --selected-stroke: #1d4ed8;
+  --available: #6ee7b7;
+  --reserved: #fbbf24;
+  --sold: #f87171;
+  --held: #93c5fd;
+  --focus-outline: #1d4ed8;
+}
+
+/* Dark theme overrides using the data-theme attribute */
+[data-theme='dark'] {
+  --bg: #1e1e1e;
+  --sidebar-bg: #2c2c2c;
+  --text: #f3f3f3;
+  --seat-fill: #555;
+  --seat-stroke: #bbb;
+  --selected-stroke: #60a5fa;
+  --available: #22c55e;
+  --reserved: #eab308;
+  --sold: #dc2626;
+  --held: #3b82f6;
+  --focus-outline: #60a5fa;
+}
+
+.app {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  color: var(--text);
+}
+
+svg {
+  flex: 1;
+  background: var(--bg);
+  width: 100%;
+  height: 100%;
+}
+
+.map {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.sidebar {
+  width: 240px;
+  padding: 1rem;
+  overflow-y: auto;
+  background: var(--sidebar-bg);
+  color: var(--text);
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--selected-stroke);
+  color: #fff;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+.adjacent-finder {
+  margin-bottom: 1rem;
+}
+
+.find-error {
+  margin-top: 0.5rem;
+  color: #dc2626;
+}
+
+.seat {
+  fill: var(--seat-fill);
+  stroke: var(--seat-stroke);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    stroke-width 0.2s ease;
+  transform-origin: center;
+}
+
+.seat.available {
+  fill: var(--available);
+}
+.seat.reserved {
+  fill: var(--reserved);
+}
+.seat.sold {
+  fill: var(--sold);
+}
+.seat.held {
+  fill: var(--held);
+}
+.seat.selected {
+  stroke-width: 3;
+  stroke: var(--selected-stroke);
+  transform: scale(1.2);
+}
+
+/* flash animation when a seat status updates */
+.seat.updated {
+  animation: flash 0.5s ease-in-out;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* price tier colors used when heat map is active */
+.seat.tier-1 {
+  fill: #86efac;
+}
+.seat.tier-2 {
+  fill: #4ade80;
+}
+.seat.tier-3 {
+  fill: #22c55e;
+}
+.seat.tier-4 {
+  fill: #16a34a;
+}
+
+.seat:focus {
+  outline: 2px solid var(--focus-outline);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .sidebar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--sidebar-bg);
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
+  svg {
+    height: 60%;
+  }
+}
