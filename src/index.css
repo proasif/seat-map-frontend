@@ -71,6 +71,9 @@ svg {
   background: var(--sidebar-bg);
   color: var(--text);
   box-shadow: var(--sidebar-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 button {
@@ -94,13 +97,39 @@ button:active {
   transform: translateY(0);
 }
 
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .adjacent-finder {
-  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .find-error {
   margin-top: 0.5rem;
   color: #dc2626;
+}
+
+.seat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.subtotal {
+  font-weight: bold;
+}
+
+.details {
+  border-top: 1px solid var(--seat-stroke);
+  padding-top: 0.75rem;
 }
 
 .seat {
@@ -109,7 +138,8 @@ button:active {
   cursor: pointer;
   transition:
     transform 0.2s ease,
-    stroke-width 0.2s ease;
+    stroke-width 0.2s ease,
+    filter 0.2s ease;
   transform-origin: center;
 }
 
@@ -128,7 +158,12 @@ button:active {
 .seat.selected {
   stroke-width: 3;
   stroke: var(--selected-stroke);
-  transform: scale(1.2);
+  filter: drop-shadow(0 0 4px var(--selected-stroke));
+}
+
+.seat:hover {
+  stroke-width: 2;
+  transform: scale(1.1);
 }
 
 .seat:hover {

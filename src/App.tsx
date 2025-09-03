@@ -118,6 +118,10 @@ export default function App() {
     setSelectedIds(block.map((b) => b.seat.id));
   };
 
+  const handleResetView = () => {
+    transformRef.current?.setTransform(0, 0, 1);
+  };
+
   if (!venue) return <div>Loading...</div>;
 
   return (
@@ -180,28 +184,24 @@ export default function App() {
       </TransformWrapper>
 
       <aside className="sidebar">
-        <h2>Selected Seats ({selectedIds.length})</h2>
-        {/* Toggle price-tier colouring */}
-        <button
-          onClick={() => setHeatMap((h) => !h)}
-          className="heatmap-toggle"
-        >
-          {heatMap ? 'Hide heat map' : 'Show heat map'}
-        </button>
-        {/* Light / dark theme switcher */}
-        <button
-          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          className="theme-toggle"
-        >
-          {theme === 'light' ? 'Enable dark mode' : 'Disable dark mode'}
-        </button>
-        {/* Reset any zoom or pan on the map */}
-        <button
-          onClick={() => transformRef.current?.resetTransform()}
-          className="reset-view"
-        >
-          Reset view
-        </button>
+        <h2>Seat Tools</h2>
+        <div className="toolbar">
+          {/* Toggle price-tier colouring */}
+          <button onClick={() => setHeatMap((h) => !h)} className="heatmap-toggle">
+            {heatMap ? 'Hide heat map' : 'Show heat map'}
+          </button>
+          {/* Light / dark theme switcher */}
+          <button
+            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+            className="theme-toggle"
+          >
+            {theme === 'light' ? 'Enable dark mode' : 'Disable dark mode'}
+          </button>
+          {/* Reset any zoom or pan on the map */}
+          <button onClick={handleResetView} className="reset-view">
+            Reset view
+          </button>
+        </div>
         <div className="adjacent-finder">
           <label>
             Find
@@ -221,7 +221,8 @@ export default function App() {
             </div>
           )}
         </div>
-        <ul>
+        <h2>Selected Seats ({selectedIds.length})</h2>
+        <ul className="seat-list">
           {selectedIds.map((id) => {
             const s = seats.find((s) => s.seat.id === id);
             if (!s) return null;
@@ -238,8 +239,7 @@ export default function App() {
           <div className="details">
             <h3>Seat details</h3>
             <div>
-              Section {active.section.id} Row {active.row.index} Seat{' '}
-              {active.seat.col}
+              Section {active.section.id} Row {active.row.index} Seat {active.seat.col}
             </div>
             <div>Status: {active.seat.status}</div>
             <div>Price: ${seatPrice(active.seat.priceTier)}</div>
