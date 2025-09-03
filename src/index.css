@@ -166,6 +166,11 @@ button:active {
   transform: scale(1.1);
 }
 
+.seat:hover {
+  stroke-width: 2;
+  transform: scale(1.1);
+}
+
 /* flash animation when a seat status updates */
 .seat.updated {
   animation: flash 0.5s ease-in-out;
