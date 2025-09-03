@@ -1,10 +1,11 @@
 import type { Venue, Section, Row, Seat } from '../types';
 
 /**
- * Programmatically build a venue with a large number of seats without
- * requiring a huge JSON payload. Default configuration yields 15k seats.
+ * Programmatically build a venue with a configurable number of seats without
+ * requiring a huge JSON payload. Defaults to 150 seats (15 × 10) for easy
+ * demoing, but supports scaling up to 15,000 seats by passing higher values.
  */
-export function generateVenue(rows = 150, cols = 100): Venue {
+export function generateVenue(rows = 15, cols = 10): Venue {
   const seatSpacing = 30; // distance between seats in both axes
   const sections: Section[] = [
     {
@@ -18,7 +19,7 @@ export function generateVenue(rows = 150, cols = 100): Venue {
   ];
 
   return {
-    venueId: 'arena-15k',
+    venueId: 'arena-150',
     name: 'Metropolis Arena',
     map: { width: cols * seatSpacing + 100, height: rows * seatSpacing + 100 },
     sections,

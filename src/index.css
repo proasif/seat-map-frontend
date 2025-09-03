@@ -162,13 +162,7 @@ button:active {
 }
 
 .seat:hover {
-  stroke-width: 2;
-  transform: scale(1.1);
-}
-
-.seat:hover {
-  stroke-width: 2;
-  transform: scale(1.1);
+  transform: scale(1.01);
 }
 
 /* flash animation when a seat status updates */

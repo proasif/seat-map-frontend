@@ -38,8 +38,8 @@ export default function App() {
   // Track seats that recently changed status for a flash animation
   const [updatedIds, setUpdatedIds] = useState<string[]>([]);
 
-  // Generate venue map on first render. This avoids fetching a massive
-  // precomputed seat list and keeps the bundle light even for 15k seats.
+  // Generate a venue map on first render. Defaults to 150 seats but the
+  // generator scales up to 15k without needing huge JSON payloads.
   useEffect(() => {
     setVenue(generateVenue());
   }, []);
@@ -132,9 +132,9 @@ export default function App() {
         wheel={{ step: 0.1 }}
         pinch={{ step: 0.1 }}
         doubleClick={{ disabled: true }}
-        wrapperClass="map"
       >
         <TransformComponent
+          wrapperClass="map"
           wrapperStyle={{ width: '100%', height: '100%' }}
           contentStyle={{ width: '100%', height: '100%' }}
         >
