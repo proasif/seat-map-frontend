@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { seatPrice } from './lib/pricing';
 import { findAdjacentSeats } from './lib/adjacency';
 import { applySeatUpdate } from './lib/updates';
+import { generateVenue } from './lib/generateVenue';
 import type { Venue, SelectionSummary, SeatUpdate } from './types';
 import {
   TransformComponent,
@@ -37,12 +38,10 @@ export default function App() {
   // Track seats that recently changed status for a flash animation
   const [updatedIds, setUpdatedIds] = useState<string[]>([]);
 
-  // Fetch venue map on first render
+  // Generate venue map on first render. This avoids fetching a massive
+  // precomputed seat list and keeps the bundle light even for 15k seats.
   useEffect(() => {
-    fetch('/venue.json')
-      .then((r) => r.json())
-      .then(setVenue)
-      .catch((err) => console.error('Failed to load venue', err));
+    setVenue(generateVenue());
   }, []);
 
   // Write the theme to a data attribute so CSS can react to it
